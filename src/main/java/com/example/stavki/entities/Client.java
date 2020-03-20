@@ -13,15 +13,15 @@ import java.util.List;
 @Entity
 public class Client extends User{
     private @Id @GeneratedValue Long id;
-    List<Wager> current;
-    List<Wager> history;
+    List<Long> current;
+    List<Long> history;
 
     Client(){}
 
     Client(String name){
         super(name);
-        List<Wager> current = new LinkedList<Wager>();
-        List<Wager> history = new LinkedList<Wager>();
+        List<Long> current = new LinkedList<>();
+        List<Long> history = new LinkedList<>();
     }
 
     public void bet(){
