@@ -21,7 +21,7 @@ public class Manager extends User{
         //логика
     }
 
-    public void addStake(Stake stake){
+    public void addGame(Game game){
         //логика
     }
 }
