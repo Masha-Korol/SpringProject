@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 @Data
 @Entity
 public class Wager {
+    private @Id @GeneratedValue Long id;
     private @Id Long gameFK;
     private @Id Long clientFK;
     private BigDecimal money;
