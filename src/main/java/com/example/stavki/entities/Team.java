@@ -13,8 +13,7 @@ import java.util.List;
 public class Team {
     //1-victory, 0-failure
     private List<Boolean> historyOfVictories;
-    private @Id @GeneratedValue Long id;
-    private String name;
+    private @Id String name;
     private float winningRate;
 
     public Team(){}
