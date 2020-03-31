@@ -1,16 +1,22 @@
 package com.example.stavki.controllers;
 
+//import io.swagger.annotations.Api;
+//import io.swagger.annotations.ApiOperation;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
 // tag::hateoas-imports[]
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
+import com.example.stavki.entities.Client;
+import com.example.stavki.entities.Game;
 import com.example.stavki.repos.GameRepository;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 // end::hateoas-imports[]
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +29,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class GameController {
 
     private final GameRepository repository;
+
+    private GameService gameService;
 
     GameController(GameRepository repository) {
         this.repository = repository;
@@ -41,13 +49,22 @@ public class GameController {
                 linkTo(methodOn(GameController.class).all()).withSelfRel());
     }
 
-
-    @PostMapping("/games")
-    Game newGame(@RequestBody Game newGame) {
-        return repository.save(newGame);
+    //вместо предыдущего метода
+    //@ApiOperation("Get the list of games")
+    @GetMapping("/games")
+    public ResponseEntity<List<Game>> getListGame() {
+        return ResponseEntity.ok(gameService.getAll());
     }
 
+    //@ApiOperation("Add new game");
+    @PostMapping("/games")
+    ResponseEntity<Object> newGame(@RequestBody Game newGame)
+    {
+        gameService.addGame(newGame);
+        return ResponseEntity.ok(newGame);
+    }
 
+    //@ApiOperation("Get game");
     @GetMapping("/games/{id}")
     EntityModel<Game> one(@PathVariable Long id) {
 
@@ -60,7 +77,7 @@ public class GameController {
     }
 
 
-    @PutMapping("/games/{id}")
+    /*@PutMapping("/games/{id}")
     Game replaceGame(@RequestBody Game newGame, @PathVariable Long id) {
 
         return repository.findById(id)
@@ -78,10 +95,13 @@ public class GameController {
                     newGame.setId(id);
                     return repository.save(newGame);
                 });
-    }
+    }*/
 
+    //@ApiOperation("Delete game");
     @DeleteMapping("/games/{id}")
-    void deleteGame(@PathVariable Long id) {
-        repository.deleteById(id);
+    ResponseEntity deleteGame(@PathVariable Long id)
+    {
+        gameService.delete(id);
+        return ResponseEntity.ok().build();
     }
 }

@@ -1,16 +1,22 @@
 package com.example.stavki.controllers;
 
+//import io.swagger.annotations.Api;
+//import io.swagger.annotations.ApiOperation;
+
+
 import java.util.List;
 import java.util.stream.Collectors;
 
 // tag::hateoas-imports[]
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
+import com.example.stavki.entities.Client;
 import com.example.stavki.repos.ClientRepository;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 // end::hateoas-imports[]
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,10 +25,15 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+//ResponseEntity extends HttpEntity
+//Used to return value from controller method
+
 @RestController
 public class ClientController {
 
     private final ClientRepository repository;
+
+    private ClientService clientService;
 
     ClientController(ClientRepository repository) {
         this.repository = repository;
@@ -37,17 +48,26 @@ public class ClientController {
                         linkTo(methodOn(ClientController.class).all()).withRel("clients")))
                 .collect(Collectors.toList());
 
-        return new CollectionModel<>(clients,
-                linkTo(methodOn(ClientController.class).all()).withSelfRel());
+        return new CollectionModel<>(clients, linkTo(methodOn(ClientController.class).all()).withSelfRel());
     }
 
+    //вместо предыдущего метода
+    //@ApiOperation("Get the list of clients")
+    @GetMapping("/clients")
+    public ResponseEntity<List<Client>> getListClient() {
+        return ResponseEntity.ok(clientService.getAll());
+    }
 
+    //ok - status
+    //@ApiOperation("Add new client");
     @PostMapping("/clients")
-    Client newClient(@RequestBody Client newClient) {
-        return repository.save(newClient);
+    ResponseEntity<Object> newClient(@RequestBody Client newClient)
+    {
+        clientService.addClient(newClient);
+        return ResponseEntity.ok(newClient);
     }
 
-
+    //@ApiOperation("Get client");
     @GetMapping("/clients/{id}")
     EntityModel<Client> one(@PathVariable Long id) {
 
@@ -60,7 +80,7 @@ public class ClientController {
     }
 
 
-    @PutMapping("/clients/{id}")
+    /*@PutMapping("/clients/{id}")
     Client replaceClient(@RequestBody Client newClient, @PathVariable Long id) {
 
         return repository.findById(id)
@@ -76,10 +96,13 @@ public class ClientController {
                     newClient.setId(id);
                     return repository.save(newClient);
                 });
-    }
+    }*/
 
+    //@ApiOperation("Delete client");
     @DeleteMapping("/clients/{id}")
-    void deleteClient(@PathVariable Long id) {
-        repository.deleteById(id);
+    ResponseEntity deleteClient(@PathVariable Long id)
+    {
+        clientService.delete(id);
+        return ResponseEntity.ok().build();
     }
 }

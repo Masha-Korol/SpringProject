@@ -1,16 +1,23 @@
 package com.example.stavki.controllers;
 
+//import io.swagger.annotations.Api;
+//import io.swagger.annotations.ApiOperation;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
 // tag::hateoas-imports[]
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
+import com.example.stavki.entities.Client;
+import com.example.stavki.entities.Manager;
+import com.example.stavki.entities.Team;
 import com.example.stavki.repos.TeamRepository;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 // end::hateoas-imports[]
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +30,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class TeamController {
 
     private final TeamRepository repository;
+
+    private TeamService teamService;
 
     TeamController(TeamRepository repository) {
         this.repository = repository;
@@ -41,12 +50,20 @@ public class TeamController {
                 linkTo(methodOn(TeamController.class).all()).withSelfRel());
     }
 
-
-    @PostMapping("/teams")
-    Team newTeam(@RequestBody Team newTeam) {
-        return repository.save(newTeam);
+    //вместо предыдущего метода
+    //@ApiOperation("Get the list of teams")
+    @GetMapping("/teams")
+    public ResponseEntity<List<Team>> getListTeam() {
+        return ResponseEntity.ok(teamService.getAll());
     }
 
+    //@ApiOperation("Add new team");
+    @PostMapping("/teams")
+    ResponseEntity<Object> newTeam(@RequestBody Team newTeam)
+    {
+        teamService.addTeam(newTeam);
+        return ResponseEntity.ok(newTeam);
+    }
 
     @GetMapping("/teams/{id}")
     EntityModel<Team> one(@PathVariable String id) {
@@ -60,7 +77,7 @@ public class TeamController {
     }
 
 
-    @PutMapping("/teams/{id}")
+    /*@PutMapping("/teams/{id}")
     Team replaceTeam(@RequestBody Team newTeam, @PathVariable String id) {
 
         return repository.findById(id)
@@ -76,10 +93,13 @@ public class TeamController {
                     newTeam.setName(id);
                     return repository.save(newTeam);
                 });
-    }
+    }*/
 
+    //@ApiOperation("Delete team");
     @DeleteMapping("/teams/{id}")
-    void deleteTeam(@PathVariable String id) {
-        repository.deleteById(id);
+    ResponseEntity deleteTeam(@PathVariable Long id)
+    {
+        teamService.delete(id);
+        return ResponseEntity.ok().build();
     }
 }
