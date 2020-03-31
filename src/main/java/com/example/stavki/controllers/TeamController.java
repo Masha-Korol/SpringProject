@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 // tag::hateoas-imports[]
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
-import com.example.stavki.entities.Team;
 import com.example.stavki.repos.TeamRepository;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;

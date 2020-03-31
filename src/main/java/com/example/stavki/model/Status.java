@@ -1,4 +1,4 @@
-package com.example.stavki.entities;
+package com.example.stavki.model;
 
 public enum Status {
     AVAILABLE,
