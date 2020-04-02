@@ -9,9 +9,9 @@ import java.util.stream.Collectors;
 // tag::hateoas-imports[]
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
-import com.example.stavki.entities.Client;
-import com.example.stavki.entities.Game;
-import com.example.stavki.entities.Manager;
+import com.example.stavki.model.Client;
+import com.example.stavki.model.Game;
+import com.example.stavki.model.Manager;
 import com.example.stavki.repos.ManagerRepository;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
