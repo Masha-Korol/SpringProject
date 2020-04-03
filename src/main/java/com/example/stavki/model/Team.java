@@ -3,10 +3,8 @@ package com.example.stavki.model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import javax.annotation.Generated;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,8 +26,8 @@ public class Team {
     private String name;
 
     @ApiModelProperty
-    @Column(name = "WINNING_HISTORY")
-    private List<Boolean> historyOfVictories;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "team")
+    private List<Game> previousGames;
 
     @ApiModelProperty
     @Column(name = "WINNING_RATE")

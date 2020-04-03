@@ -3,17 +3,15 @@ package com.example.stavki.model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import javax.annotation.Generated;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.context.annotation.Primary;
 
 import java.math.BigDecimal;
+import java.util.LinkedList;
 import java.util.List;
 
 @ApiModel
@@ -31,12 +29,12 @@ public class Client {
     private int id;
 
     @ApiModelProperty
-    @Column(name = "CURRENT")
-    List<Wager> current;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "client")
+    private List<Wager> current;
 
     @ApiModelProperty
-    @Column(name = "HISTORY")
-    List<Wager> history;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "client")
+    private List<Wager> history;
 
     @ApiModelProperty
     @Column(name = "NAME")
@@ -44,5 +42,5 @@ public class Client {
 
     @ApiModelProperty
     @Column(name = "MONEY")
-    private BigDecimal money;
+    private double money;
 }

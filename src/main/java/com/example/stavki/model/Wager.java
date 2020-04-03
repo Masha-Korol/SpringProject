@@ -3,11 +3,8 @@ package com.example.stavki.model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import javax.annotation.Generated;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,27 +20,24 @@ import java.math.BigDecimal;
 @Table(name = "WAGERS")
 public class Wager {
 
-    @ApiModelProperty
-    @Id
-    @GeneratedValue
-    @Column(name = "ID", unique = true, nullable = false, updatable = false)
-    private int id;
 
     @ApiModelProperty
     @Id
-    @Column(name = "GAME_FK", unique = true, nullable = false, updatable = false)
-    private Long gameFK;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinColumn(name = "GAME_FK", nullable = false)
+    private Game game;
 
     @ApiModelProperty
     @Id
-    @Column(name = "CLIENT_FK", unique = true, nullable = false, updatable = false)
-    private Long clientFK;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinColumn(name = "CLIENT_FK", nullable = false)
+    private Client client;
 
     @ApiModelProperty
     @Column(name = "MONEY")
-    private BigDecimal money;
+    private double money;
 
     @ApiModelProperty
-    @Column(name = "PREDICTION_ON_FIRST_TEAM")
-    private boolean isFirstTeamWinning;
+    @Column(name = "PREDICTION")
+    private int TeamToWin;
 }

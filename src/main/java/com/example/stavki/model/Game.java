@@ -3,11 +3,8 @@ package com.example.stavki.model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import javax.annotation.Generated;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -38,20 +35,22 @@ public class Game {
     private Date deadline;
 
     @ApiModelProperty
-    @Column(name = "TEAM1")
-    private String team1;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinColumn(name = "TEAM_1", nullable = false)
+    private Team team1;
 
     @ApiModelProperty
-    @Column(name = "TEAM2")
-    private String team2;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinColumn(name = "TEAM_2", nullable = false)
+    private Team team2;
 
     @ApiModelProperty
     @Column(name = "RATE")
     private double rate;
 
     @ApiModelProperty
-    @Column(name = "IF_FIRST_TEAM_WON")
-    private boolean isFirstTeamWinning;
+    @Column(name = "RESULT")
+    private int result;
 
 }
 
