@@ -26,4 +26,12 @@ public class GameService {
     public List<Game> getAll(){
         return gameRepository.findAll();
     }
+
+    public void addGame(Game newGame) {
+
+    }
+
+    public void delete(Long id) {
+
+    }
 }

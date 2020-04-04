@@ -7,14 +7,9 @@ package com.example.stavki.controllers;
 import java.util.List;
 import java.util.stream.Collectors;
 
-// tag::hateoas-imports[]
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
-
 import com.example.stavki.model.Client;
 import com.example.stavki.repos.ClientRepository;
-import org.springframework.hateoas.CollectionModel;
-import org.springframework.hateoas.EntityModel;
-// end::hateoas-imports[]
+import com.example.stavki.services.ClientService;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -39,6 +34,7 @@ public class ClientController {
         this.repository = repository;
     }
 
+    /*
     @GetMapping("/clients")
     CollectionModel<EntityModel<Client>> all() {
 
@@ -49,7 +45,7 @@ public class ClientController {
                 .collect(Collectors.toList());
 
         return new CollectionModel<>(clients, linkTo(methodOn(ClientController.class).all()).withSelfRel());
-    }
+    }*/
 
     //вместо предыдущего метода
     //@ApiOperation("Get the list of clients")
@@ -67,6 +63,7 @@ public class ClientController {
         return ResponseEntity.ok(newClient);
     }
 
+    /*
     //@ApiOperation("Get client");
     @GetMapping("/clients/{id}")
     EntityModel<Client> one(@PathVariable Long id) {
@@ -77,7 +74,7 @@ public class ClientController {
         return new EntityModel<>(client,
                 linkTo(methodOn(ClientController.class).one(id)).withSelfRel(),
                 linkTo(methodOn(ClientController.class).all()).withRel("clients"));
-    }
+    }*/
 
 
     /*@PutMapping("/clients/{id}")

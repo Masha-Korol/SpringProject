@@ -37,4 +37,12 @@ public class ManagerService {
     public void addGame(Game game){
         //логика
     }
+
+    public void addManager(Manager newManager) {
+
+    }
+
+    public void delete(Long id) {
+
+    }
 }

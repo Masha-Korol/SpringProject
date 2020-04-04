@@ -35,4 +35,7 @@ public class ClientService {
         //Логика
     }
 
+    public void delete(Long id) {
+
+    }
 }

@@ -27,4 +27,7 @@ public class TeamService {
         return teamRepository.findAll();
     }
 
+    public void delete(Long id) {
+
+    }
 }

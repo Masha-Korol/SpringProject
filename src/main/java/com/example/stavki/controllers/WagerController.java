@@ -6,17 +6,12 @@ package com.example.stavki.controllers;
 import java.util.List;
 import java.util.stream.Collectors;
 
-// tag::hateoas-imports[]
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
-
 import com.example.stavki.model.Client;
 import com.example.stavki.model.Team;
 import com.example.stavki.model.Wager;
 import com.example.stavki.repos.WagerRepository;
-import org.springframework.hateoas.CollectionModel;
-import org.springframework.hateoas.EntityModel;
-// end::hateoas-imports[]
 
+import com.example.stavki.services.WagerService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,6 +32,7 @@ public class WagerController {
         this.repository = repository;
     }
 
+    /*
     @GetMapping("/wagers")
     CollectionModel<EntityModel<Wager>> all() {
 
@@ -48,7 +44,7 @@ public class WagerController {
 
         return new CollectionModel<>(wagers,
                 linkTo(methodOn(WagerController.class).all()).withSelfRel());
-    }
+    }*/
 
     //вместо предыдущего метода
     //@ApiOperation("Get the list of wagers")
@@ -66,6 +62,7 @@ public class WagerController {
     }
 
 
+    /*
     @GetMapping("/wagers/{id}")
     EntityModel<Wager> one(@PathVariable Long id) {
 
@@ -75,7 +72,7 @@ public class WagerController {
         return new EntityModel<>(wager,
                 linkTo(methodOn(WagerController.class).one(id)).withSelfRel(),
                 linkTo(methodOn(WagerController.class).all()).withRel("wagers"));
-    }
+    }*/
 
 
     /*@PutMapping("/wagers/{id}")

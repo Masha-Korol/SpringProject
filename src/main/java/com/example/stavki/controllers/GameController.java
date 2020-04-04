@@ -6,16 +6,11 @@ package com.example.stavki.controllers;
 import java.util.List;
 import java.util.stream.Collectors;
 
-// tag::hateoas-imports[]
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
-
 import com.example.stavki.model.Client;
 import com.example.stavki.model.Game;
 import com.example.stavki.repos.GameRepository;
-import org.springframework.hateoas.CollectionModel;
-import org.springframework.hateoas.EntityModel;
-// end::hateoas-imports[]
 
+import com.example.stavki.services.GameService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,6 +31,7 @@ public class GameController {
         this.repository = repository;
     }
 
+    /*
     @GetMapping("/games")
     CollectionModel<EntityModel<Game>> all() {
 
@@ -47,7 +43,7 @@ public class GameController {
 
         return new CollectionModel<>(games,
                 linkTo(methodOn(GameController.class).all()).withSelfRel());
-    }
+    }*/
 
     //вместо предыдущего метода
     //@ApiOperation("Get the list of games")
@@ -64,6 +60,7 @@ public class GameController {
         return ResponseEntity.ok(newGame);
     }
 
+    /*
     //@ApiOperation("Get game");
     @GetMapping("/games/{id}")
     EntityModel<Game> one(@PathVariable Long id) {
@@ -74,7 +71,7 @@ public class GameController {
         return new EntityModel<>(game,
                 linkTo(methodOn(GameController.class).one(id)).withSelfRel(),
                 linkTo(methodOn(GameController.class).all()).withRel("games"));
-    }
+    }*/
 
 
     /*@PutMapping("/games/{id}")

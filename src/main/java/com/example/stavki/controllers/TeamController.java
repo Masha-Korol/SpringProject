@@ -6,17 +6,12 @@ package com.example.stavki.controllers;
 import java.util.List;
 import java.util.stream.Collectors;
 
-// tag::hateoas-imports[]
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
-
 import com.example.stavki.model.Client;
 import com.example.stavki.model.Manager;
 import com.example.stavki.model.Team;
 import com.example.stavki.repos.TeamRepository;
-import org.springframework.hateoas.CollectionModel;
-import org.springframework.hateoas.EntityModel;
-// end::hateoas-imports[]
 
+import com.example.stavki.services.TeamService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,6 +32,7 @@ public class TeamController {
         this.repository = repository;
     }
 
+    /*
     @GetMapping("/teams")
     CollectionModel<EntityModel<Team>> all() {
 
@@ -48,7 +44,7 @@ public class TeamController {
 
         return new CollectionModel<>(teams,
                 linkTo(methodOn(TeamController.class).all()).withSelfRel());
-    }
+    }*/
 
     //вместо предыдущего метода
     //@ApiOperation("Get the list of teams")
@@ -65,6 +61,7 @@ public class TeamController {
         return ResponseEntity.ok(newTeam);
     }
 
+    /*
     @GetMapping("/teams/{id}")
     EntityModel<Team> one(@PathVariable String id) {
 
@@ -74,7 +71,7 @@ public class TeamController {
         return new EntityModel<>(team,
                 linkTo(methodOn(TeamController.class).one(id)).withSelfRel(),
                 linkTo(methodOn(TeamController.class).all()).withRel("teams"));
-    }
+    }*/
 
 
     /*@PutMapping("/teams/{id}")

@@ -26,4 +26,8 @@ public class WagerService {
     public List<Wager> getAll(){
         return wagerRepository.findAll();
     }
+
+    public void delete(Long id) {
+        
+    }
 }
