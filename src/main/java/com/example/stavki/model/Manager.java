@@ -1,6 +1,46 @@
 package com.example.stavki.model;
 
-import io.swagger.annotations.ApiModel;
+import javax.persistence.*;
+
+@Entity
+@Table(name = "managers")
+public class Manager{
+
+    @Id
+    @Column(name = "manager_id")
+    private int manager_id;
+
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "money")
+    private float money;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import javax.annotation.Generated;
 import javax.persistence.Column;
@@ -35,5 +75,5 @@ public class Manager {
 
     @ApiModelProperty
     @Column(name = "MONEY")
-    private BigDecimal money;
-}
+    private float money;
+}*/
